@@ -1,0 +1,55 @@
+#!/usr/bin/env ruby
+APP_ROOT = File.expand_path(File.join(File.dirname(__FILE__), '..'))
+                           
+# sudo gem sources -a http://gems.github.com
+# sudo gem install visionmedia-commander
+require 'rubygems'
+require 'commander'
+
+     
+require File.dirname(__FILE__) + '/../lib/FindArt.rb'
+include FindArt
+
+# :name is optional, otherwise uses the basename of this executable
+program :name, 'findart - Album Art finder'
+program :version, FindArt::VERSION
+program :description, 'Searches for album art on several sites'
+program :help, 'Copyright', '2009 Michel de Graaf'
+global_option '--verbose'
+
+command :find do |c|
+  c.syntax = 'find searchstring'
+  c.description = 'Searches for album art'
+  c.option '--artist "artistname"', String, 'Artist name.'
+  c.option '--title "title"', String, "Album title."
+  c.when_called do |args, options|   
+    if options.artist.nil? && options.title.nil? && args.empty?
+       say "Please provide keywords e.g.\n  findart find \"Daft punk Discovery\"\n  findart find --artist \"Daft punk\" --title \"Discovery\""
+    else                            
+         artist =  options.artist || ""
+         title = options.title || ""
+         artist = args if options.artist.nil? && options.title.nil?                
+         @scraper = Scraper.new
+         results = @scraper.find_art(artist,title) 
+         if results.empty?                        
+            query = "#{artist} #{title}".strip
+            say "No album art found for \"#{query}\""
+         else
+           say "Found #{results.size} results" 
+           say results.join("\n")      
+         end
+    end      
+  end
+end
+
+
+command :sites do |c|
+  c.syntax = 'sites'
+  c.description = 'Shows sites that are used for album art searching'
+  c.when_called do |args, options|           
+   @scraper = Scraper.new
+   sites  = @scraper.registerd_sites
+   say "Sites currently used to search for art:"
+   say sites.join("\n")        
+  end
+end
