@@ -10,9 +10,9 @@ Hoe.plugin :cucumberfeatures
 
 # Generate all the Rake tasks
 # Run 'rake -T' to see list of generated tasks (from gem root directory)
-$hoe = Hoe.spec 'FindArt' do
+$hoe = Hoe.spec 'findart' do
   self.developer 'Michel de Graaf', 'michel@re-invention.nl'
-  self.rubyforge_name       = self.name # TODO this is default value
+  self.rubyforge_name       = "findart"
   self.extra_deps         = [['mechanize','>=0.9.3'],
                             ["hpricot",'>=0.8.1'],
                             ["fakeweb",">=1.2.5"],
