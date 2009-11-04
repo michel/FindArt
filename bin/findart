@@ -1,10 +1,8 @@
 #!/usr/bin/env ruby
 APP_ROOT = File.expand_path(File.join(File.dirname(__FILE__), '..'))
-                           
-# sudo gem sources -a http://gems.github.com
-# sudo gem install visionmedia-commander
+
 require 'rubygems'
-require 'commander'
+require 'commander/import'
 
      
 require File.dirname(__FILE__) + '/../lib/FindArt.rb'
@@ -47,8 +45,7 @@ command :sites do |c|
   c.syntax = 'sites'
   c.description = 'Shows sites that are used for album art searching'
   c.when_called do |args, options|           
-   @scraper = Scraper.new
-   sites  = @scraper.registerd_sites
+   sites  = Scraper.registerd_sites
    say "Sites currently used to search for art:"
    say sites.join("\n")        
   end

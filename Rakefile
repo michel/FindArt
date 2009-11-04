@@ -14,11 +14,8 @@ $hoe = Hoe.spec 'findart' do
   self.developer 'Michel de Graaf', 'michel@re-invention.nl'
   self.rubyforge_name       = "findart"
   self.extra_deps         = [['mechanize','>=0.9.3'],
-                            ["hpricot",'>=0.8.1'],
-                            ["fakeweb",">=1.2.5"],
-                            ["cucumber",">=0.3.97"],
                             ["newgem",">=1.5.2"],
-                            ["visionmedia-commander",">=3.2.9"]
+                            ["commander",">=3.2.9"]
                             ]
 end
 

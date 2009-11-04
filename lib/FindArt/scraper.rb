@@ -46,8 +46,9 @@ module FindArt
       end  
       results = []                
       begin
-      threads.each {|t| t.join;  results << t["results"] unless t['results'].nil? }           
+        threads.each {|t| t.join;  results << t["results"] unless t['results'].nil? }           
       rescue
+        # todo: make some way to disable  specific scrapers via commandline options
       end
       results
     end
